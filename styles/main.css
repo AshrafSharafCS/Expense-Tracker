@@ -32,6 +32,9 @@ header {
 .space-between {
   justify-content: space-between;
 }
+.space-around {
+  justify-content: space-around;
+}
 
 .border-radius {
   border-radius: 10px;
@@ -56,3 +59,33 @@ header {
   background-color: rgb(255, 174, 0);
   padding: 5px;
 }
+.transaction-view {
+  height: 350px;
+
+  width: 100%;
+  gap: 5px;
+}
+.trans {
+  width: 100%;
+  height: 15%;
+}
+
+
+
+/* <div class="trans flex center row space-around" id="transaction-output">
+<div>
+  <h4></h4>
+</div>
+<div>
+  <h4></h4>
+</div>
+<div>
+  <h4></h4>
+</div>
+<div>
+  <input class="btns"  type="button" value="Edit Transaction" />
+</div>
+<div>
+  <input class="btns"  type="button" value="Delete Transaction" />
+</div>
+</div> */
