@@ -6,7 +6,7 @@ const test=[
   {"name":"qwer","password":"qwer"}
 ];
 
-localStorage.setItem("user", JSON.stringify(users));
+
 
 const addTrans = document.getElementById("add-transaction");
 const currency = document.getElementById("currency");
