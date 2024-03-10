@@ -14,12 +14,26 @@
   </header>
 
   <div class="flex center">
-    <div class="transaction-container center">
-      <div> 
-        <label>username</label>
-        <input type="text">
+    <div class="login-container  flex column center">
+      <div class="child flex">
+        <div>
+          <h3>Username</h3>
+        </div>
+        <div><input type="text" id="username" placeholder="Username"></div>
       </div>
+      <div class="child flex">
+        <div>
+          <h3>Password</h3>
+        </div>
+        <div><input type="password" id="password" placeholder="password"></div>
+      </div>
+
+      <input class="btns" id="login" type="button" value="Log-in" />
+      <a href="pages/transaction.html">Sign-up here</a>
+
     </div>
+
+
 
   </div>
   <script src="scripts/main.js"></script>

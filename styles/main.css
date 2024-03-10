@@ -43,7 +43,7 @@ header {
   border-radius: 10px;
 }
 
-/* body  */
+/* body of transaction */
 .transaction-container {
   background-color: rgb(55, 57, 55);
   margin-top: 30px;
@@ -72,23 +72,21 @@ header {
   height: 15%;
 }
 
-/* <div class="trans flex center row space-around" id="transaction-output">
-<div>
-  <h4></h4>
-</div>
-<div>
-  <h4></h4>
-</div>
-<div>
-  <h4></h4>
-</div>
-<div>
-  <input class="btns"  type="button" value="Edit Transaction" />
-</div>
-<div>
-  <input class="btns"  type="button" value="Delete Transaction" />
-</div>
-</div> */
+/* log-in */
+.login-container {
+  background-color: rgb(55, 57, 55);
+  margin-top: 30px;
+  border: 5px black solid;
+  width: 50%;
+  color: rgb(255, 174, 0);
+  gap: 20px;
+  height: 300px;
+}
+a {
+  color: rgb(255, 174, 0);
+  text-decoration: none;
+}
+
 @media only screen and (max-width: 600px) {
   .child {
     width: 90%;
