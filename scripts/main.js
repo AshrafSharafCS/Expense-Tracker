@@ -1,16 +1,45 @@
-const tranactions = [];
-const users = [];
-
-const test=[
-  {"name":"ashraf","password":"1234"},
-  {"name":"qwer","password":"qwer"}
-];
-
-
-
 const addTrans = document.getElementById("add-transaction");
 const currency = document.getElementById("currency");
 const tranactionType = document.getElementById("transaction-type");
+const displayUSer=document.getElementById("displayuser");
+const dataname = localStorage.getItem("loggedUser");
+displayUSer.innerHTML=dataname+"  Account";
+
+
+let transArray=[];
+
+CallCurrency();
+
+
+
+// adding a tranaction
+  addTrans.addEventListener("click", function () {
+  const tranactionType = document.getElementById("transaction-type").value;
+  const amount = document.getElementById("amount").value;
+  const currency = document.getElementById("currency").value;
+  MakeTransaction(tranactionType,amount,currency);
+
+});
+
+function MakeTransaction(type,amount,currency){
+
+  let tranaction = {
+    user: dataname,
+    type: type,
+    amount:amount,
+    currency:currency
+  };
+  Addtrans(tranaction);
+} 
+
+function Addtrans(transaction) {
+const data = localStorage.getItem("transactions");
+if (data) {
+  transArray = JSON.parse(data);
+}
+transArray.push(transaction);
+localStorage.setItem("transactions", JSON.stringify(transArray));
+}
 
 
 
@@ -28,23 +57,11 @@ const tranactionType = document.getElementById("transaction-type");
 
 
 
-
-
-
-
-
-
-// addTrans.addEventListener("click", function () {
-//   let amount = document.getElementById("amount").value;
-//   console.log(currency);
-
-//   alert(tranactionType+"  "+amount+"  "+currency);
-// });
 
 // fetching the api to get the currencies.
-function CallingCurrency() {
+function CallCurrency() {
   result = fetch(
-    "https://crowded-cyan-wildebeest.cyclic.app/students/available",
+    "https://rich-erin-angler-hem.cyclic.app/students/available",
     {
       method: "GET",
     }
@@ -67,6 +84,12 @@ function CallingCurrency() {
   }
 }
 
+
+
+
+
+
+
 function Convert() {
   const dataa = JSON.stringify({
     from: "EUR",
@@ -81,7 +104,7 @@ function Convert() {
   };
 
   return fetch(
-    "https://crowded-cyan-wildebeest.cyclic.app/students/convert",
+    "https://rich-erin-angler-hem.cyclic.app/students/convert",
     request
   )
     .then((response) => {
