@@ -1,44 +1,16 @@
 const tranactions = [];
 const users = [];
 
+const test=[
+  {"name":"ashraf","password":"1234"},
+  {"name":"qwer","password":"qwer"}
+];
+
 localStorage.setItem("user", JSON.stringify(users));
 
 const addTrans = document.getElementById("add-transaction");
 const currency = document.getElementById("currency");
 const tranactionType = document.getElementById("transaction-type");
-
-// taking inputs from sign-up form 
-const username = document.getElementById("username");
-const password = document.getElementById("password");
-const confirmPassword = document.getElementById("confirmpassword");
-const signUpbtn = document.getElementById("sign-up");
-
-
-
-
-// adding a user to the users array in the lcoal storage 
-signUpbtn.addEventListener("click", function () {
-  let name = username.value;
-  let pass = password.value;
-  let confirmpass = confirmPassword.value;
-  if (pass === confirmpass) {
-    let user = {
-      name: name,
-      password: pass,
-    };
-    users.push(user);
-    localStorage.setItem("user", JSON.stringify(users));
-  }else{
-    alert("Wrong Input!!!");
-  }
-});
-
-
-
-
-
-
-
 
 
 
