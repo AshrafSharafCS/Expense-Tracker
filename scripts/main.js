@@ -27,6 +27,8 @@ function MakeTransaction(type, amount, currency) {
     currency: currency,
   };
   Addtrans(transaction);
+  view.innerHTML="";
+  Loadtrans();
 }
 
 function Addtrans(transaction) {
@@ -72,6 +74,20 @@ function Loadtrans() {
     }
   }
 }
+
+// function CalculateTotal() {
+//   const data = localStorage.getItem("transactions");
+//   if (data) {
+//     transArray = JSON.parse(data);
+//   }
+//   for (let i = 0; i < transArray.length; i++) {
+//     if (dataname == transArray[i].user) {
+      
+//       view.innerHTML+=Viewtrans(transArray[i]);
+//     }
+//   }
+// }
+
 // delete transaction 
 function deletetrans() {
   const data = localStorage.getItem("transactions");
@@ -84,7 +100,7 @@ function deletetrans() {
     }
   }
 }
-
+// logout function 
 function logout(){
   window.location.href = "../index.html";
   localStorage.setItem("loggedUser",null);
@@ -112,6 +128,7 @@ function CallCurrency() {
   }
 }
 
+// convert api 
 function Convert() {
   const dataa = JSON.stringify({
     from: "EUR",
