@@ -1,48 +1,44 @@
 const addTrans = document.getElementById("add-transaction");
 const currency = document.getElementById("currency");
 const transactionType = document.getElementById("transaction-type");
-const displayUSer=document.getElementById("displayuser");
+const displayUSer = document.getElementById("displayuser");
 const dataname = localStorage.getItem("loggedUser");
-const view=document.getElementById("transaction-output");
-displayUSer.innerHTML=dataname+"  Account";
+const view = document.getElementById("transaction-output");
+displayUSer.innerHTML = dataname + "  Account";
 
-
-let transArray=[];
+let transArray = [];
 
 CallCurrency();
-
-
+Loadtrans();
 
 // adding a transaction
-  addTrans.addEventListener("click", function () {
+addTrans.addEventListener("click", function () {
   const transactionType = document.getElementById("transaction-type").value;
   const amount = document.getElementById("amount").value;
   const currency = document.getElementById("currency").value;
-  MakeTransaction(transactionType,amount,currency);
-
+  MakeTransaction(transactionType, amount, currency);
 });
 
-function MakeTransaction(type,amount,currency){
-
+function MakeTransaction(type, amount, currency) {
   let transaction = {
     user: dataname,
     type: type,
-    amount:amount,
-    currency:currency
+    amount: amount,
+    currency: currency,
   };
   Addtrans(transaction);
-  view.innerHTML+=Viewtrans(transaction);
-} 
+}
 
 function Addtrans(transaction) {
-const data = localStorage.getItem("transactions");
-if (data) {
-  transArray = JSON.parse(data);
+  const data = localStorage.getItem("transactions");
+  if (data) {
+    transArray = JSON.parse(data);
+  }
+  transArray.push(transaction);
+  localStorage.setItem("transactions", JSON.stringify(transArray));
 }
-transArray.push(transaction);
-localStorage.setItem("transactions", JSON.stringify(transArray));
-}
-
+ 
+// view every transaction in html
 function Viewtrans(transaction) {
   view.innerHTML = "";
   return `        <div class="trans flex center space-around" >
@@ -56,38 +52,44 @@ function Viewtrans(transaction) {
     <h4>${transaction.currency}</h4>
   </div>
   <div>
-    <button class="btns" id="" >Edit</button>
+    <button class="btns" onclick="edittrans()" >Edit</button>
   </div>
   <div>
-    <button class="btns" id="" >Delete</button>
+    <button class="btns" onclick="deletetrans()" >Delete</button>
   </div>
 </div>`;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// load transaction for the logged user 
+function Loadtrans() {
+  const data = localStorage.getItem("transactions");
+  if (data) {
+    transArray = JSON.parse(data);
+  }
+  for (let i = 0; i < transArray.length; i++) {
+    if (dataname == transArray[i].user) {
+      
+      view.innerHTML+=Viewtrans(transArray[i]);
+    }
+  }
+}
+// delete transaction 
+function deletetrans() {
+  const data = localStorage.getItem("transactions");
+  if (data) {
+    transArray = JSON.parse(data);
+  }
+  for (let i = 0; i < transArray.length; i++) {
+    if (dataname == transArray[i].user) {
+      console.log(transArray[i]);
+    }
+  }
+}
 
 // fetching the api to get the currencies.
 function CallCurrency() {
-  result = fetch(
-    "https://rich-erin-angler-hem.cyclic.app/students/available",
-    {
-      method: "GET",
-    }
-  );
+  result = fetch("https://rich-erin-angler-hem.cyclic.app/students/available", {
+    method: "GET",
+  });
   result
     .then((response) => response.json())
     .then((data) => {
@@ -105,12 +107,6 @@ function CallCurrency() {
     select.appendChild(option);
   }
 }
-
-
-
-
-
-
 
 function Convert() {
   const dataa = JSON.stringify({

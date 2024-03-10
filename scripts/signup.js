@@ -16,6 +16,8 @@ signUpbtn.addEventListener("click", function () {
       password: pass,
     };
     AddLocally(user);
+    window.location.href = "./transaction.html";
+    localStorage.setItem("loggedUser",name);
   } else {
     alert("Wrong Input!!!");
   }
