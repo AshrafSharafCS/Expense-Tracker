@@ -1,8 +1,9 @@
 const addTrans = document.getElementById("add-transaction");
 const currency = document.getElementById("currency");
-const tranactionType = document.getElementById("transaction-type");
+const transactionType = document.getElementById("transaction-type");
 const displayUSer=document.getElementById("displayuser");
 const dataname = localStorage.getItem("loggedUser");
+const view=document.getElementById("transaction-output");
 displayUSer.innerHTML=dataname+"  Account";
 
 
@@ -12,24 +13,25 @@ CallCurrency();
 
 
 
-// adding a tranaction
+// adding a transaction
   addTrans.addEventListener("click", function () {
-  const tranactionType = document.getElementById("transaction-type").value;
+  const transactionType = document.getElementById("transaction-type").value;
   const amount = document.getElementById("amount").value;
   const currency = document.getElementById("currency").value;
-  MakeTransaction(tranactionType,amount,currency);
+  MakeTransaction(transactionType,amount,currency);
 
 });
 
 function MakeTransaction(type,amount,currency){
 
-  let tranaction = {
+  let transaction = {
     user: dataname,
     type: type,
     amount:amount,
     currency:currency
   };
-  Addtrans(tranaction);
+  Addtrans(transaction);
+  view.innerHTML+=Viewtrans(transaction);
 } 
 
 function Addtrans(transaction) {
@@ -41,6 +43,26 @@ transArray.push(transaction);
 localStorage.setItem("transactions", JSON.stringify(transArray));
 }
 
+function Viewtrans(transaction) {
+  view.innerHTML = "";
+  return `        <div class="trans flex center space-around" >
+  <div>
+    <h4>${transaction.type}</h4>
+  </div>
+  <div>
+    <h4>${transaction.amount}</h4>
+  </div>
+  <div>
+    <h4>${transaction.currency}</h4>
+  </div>
+  <div>
+    <button class="btns" id="" >Edit</button>
+  </div>
+  <div>
+    <button class="btns" id="" >Delete</button>
+  </div>
+</div>`;
+}
 
 
 
