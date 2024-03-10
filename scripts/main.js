@@ -85,6 +85,10 @@ function deletetrans() {
   }
 }
 
+function logout(){
+  window.location.href = "../index.html";
+  localStorage.setItem("loggedUser",null);
+}
 // fetching the api to get the currencies.
 function CallCurrency() {
   result = fetch("https://rich-erin-angler-hem.cyclic.app/students/available", {
