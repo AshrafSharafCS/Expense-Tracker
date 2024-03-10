@@ -12,7 +12,7 @@ addTrans.addEventListener("click", function () {
 });
 
 // fetching the api to get the currencies.
-result = fetch("https://ivory-ostrich-yoke.cyclic.app/students/available", {
+result = fetch("https://crowded-cyan-wildebeest.cyclic.app/students/available", {
   method: "GET",
 });
 result
@@ -32,34 +32,6 @@ function addOption(value, code) {
   select.appendChild(option);
 }
 
-// let userData = new FormData();
-
-// userData.append("from", "EUR");
-// userData.append("to", "USD");
-// userData.append("amount", 1000);
-
-// let ashraf=JSON.stringify({
-//   "from": "EUR",
-//   "to": "USD",
-//   "amount": 232
-// });
-
-// const created = fetch(
-//   "https://ivory-ostrich-yoke.cyclic.app/students/convert",
-//   {
-//     method: "POST",
-//     mode: "no-cors",
-//     body: ashraf
-//   }
-// );
-
-// created
-//   .then((response) => {
-//     return response;
-//   })
-//   .then((data) => {
-//     console.log(data);
-//   });
 
 function Convert(){
 const dataa = JSON.stringify({
@@ -74,11 +46,23 @@ const request = {
   body: dataa,
 };
 
-fetch("https://ivory-ostrich-yoke.cyclic.app/students/convert", request)
+return fetch("https://crowded-cyan-wildebeest.cyclic.app/students/convert", request)
   .then((response) => {
-    return response.text();
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
   })
   .then((result) => {
     return result;
   });
 }
+
+// Convert()
+// .then((data)=>{
+//   console.log(data);
+
+// }) .catch((error) => {
+//   console.error("Error:", error);
+// });;
+// Convert()

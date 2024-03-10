@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transactions</title>
+  <link rel="stylesheet" href="../styles/main.css" />
+</head>
+
+<body>
+  <header>
+    <h1>User Transactions</h1>
+  </header>
+
+  <div class="flex center">
+    <div class="transaction-container flex center column">
+      <div>
+        <h2>Users Balance :</h2>
+        <h2 id="users-amount"></h2>
+      </div>
+      <div class="child flex ">
+       <div> <h3>Choose the type of the transaction</h3></div>
+       <div> <select id="transaction-type">
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+        </select>
+       </div>
+      </div>
+
+      <div class="child flex ">
+        <h3>Amount</h3>
+        <input type="number" id="amount" placeholder="Enter the amount" />
+      </div>
+
+      <div class="child flex ">
+        <h3>Choose the currency</h3>
+        <select id="currency">
+          
+        </select>
+      </div>
+      <div>
+        <input class="btns" id="add-transaction" type="button" value="Add Transaction" />
+      </div>
+      <div class="child flex ">
+        <h3>Filter Type</h3>
+        <select id="filter">
+          <option value="$">$</option>
+          <option value="LP">LP</option>
+        </select>
+      </div>
+      <div class="transaction-view flex column">
+        <!-- <div class="trans flex center space-around" id="transaction-output">
+          <div>
+            <h4></h4>
+          </div>
+          <div>
+            <h4></h4>
+          </div>
+          <div>
+            <h4></h4>
+          </div>
+          <div>
+            <input class="btns" type="button" value="Edit Transaction" />
+          </div>
+          <div>
+            <input class="btns" type="button" value="Delete Transaction" />
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <script src="../scripts/main.js"></script>
+</body>
+
+</html>
