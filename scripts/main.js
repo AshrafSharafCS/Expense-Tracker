@@ -6,10 +6,13 @@ const dataname = localStorage.getItem("loggedUser");
 const view = document.getElementById("transaction-output");
 displayUSer.innerHTML = dataname + "  Account";
 
+let transactionArray=[];
 let transArray = [];
 
 CallCurrency();
 Loadtrans();
+
+
 
 // adding a transaction
 addTrans.addEventListener("click", function () {
@@ -21,45 +24,16 @@ addTrans.addEventListener("click", function () {
 
 function MakeTransaction(type, amount, currency) {
   let transaction = {
-    user: dataname,
     type: type,
     amount: amount,
     currency: currency,
   };
-  Addtrans(transaction);
+  transactionArray.push(transaction);
+  savelocal(transactionArray);
   Loadtrans();
+  
 }
 
-function Addtrans(transaction) {
-  const data = localStorage.getItem("transactions");
-  if (data) {
-    transArray = JSON.parse(data);
-  }
-  transArray.push(transaction);
-  localStorage.setItem("transactions", JSON.stringify(transArray));
-}
- 
-// view every transaction in html
-// function Viewtrans(transaction) {
-//   view.innerHTML = "";
-//   return `        <div class="trans flex center space-around" >
-//   <div>
-//     <h4>${transaction.type}</h4>
-//   </div>
-//   <div>
-//     <h4>${transaction.amount}</h4>
-//   </div>
-//   <div>
-//     <h4>${transaction.currency}</h4>
-//   </div>
-//   <div>
-//     <button class="btns" onclick="edittrans()" >Edit</button>
-//   </div>
-//   <div>
-//     <button class="btns" onclick="deletetrans()" >Delete</button>
-//   </div>
-// </div>`;
-// }
 // load transactions
 function Loadtrans() {
   view.innerHTML="";
@@ -81,11 +55,11 @@ function Loadtrans() {
         <h4>${transArray[i].currency}</h4>
       </div>
       <div>
-        <button class="btns" onclick="edittrans(${transArray[i]})" >Edit</button>
+        <button class="btns" onclick="edittrans(${i})" >Edit</button>
       </div>
       <div>
-        <button class="btns" onclick="deletetrans(${transArray[i]})" >Delete</button>
-      </div>
+        <button class="btns" onclick="deletetrans(${i})" >Delete</button>
+      </div
     </div>`;
     
       view.innerHTML+=trans;
@@ -93,31 +67,44 @@ function Loadtrans() {
     
   }
 }
-// function CalculateTotal() {
-//   const data = localStorage.getItem("transactions");
-//   if (data) {
-//     transArray = JSON.parse(data);
-//   }
-//   for (let i = 0; i < transArray.length; i++) {
-//     if (dataname == transArray[i].user) {
-      
-//       view.innerHTML+=Viewtrans(transArray[i]);
-//     }
-//   }
-// }
+
+
+
+
+
+
+function savelocal(arr){
+  localStorage.setItem("transactions",JSON.stringify(arr));
+}
+
+
 
 // delete transaction 
-function deletetrans() {
-  const data = localStorage.getItem("transactions");
-  if (data) {
-    transArray = JSON.parse(data);
-  }
-  for (let i = 0; i < transArray.length; i++) {
-    if (dataname == transArray[i].user) {
-      console.log(transArray[i]);
-    }
-  }
+function deletetrans(index) {
+  transactionArray.slice(index,1);
+  savelocal();
+  Loadtrans();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // logout function 
 function logout(){
