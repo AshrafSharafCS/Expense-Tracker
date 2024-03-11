@@ -10,17 +10,7 @@ const filter = document.getElementById("filter");
 displayUSer.innerHTML = dataname + "  Account";
 
 let transactionArray = [];
-let transArray = [];
 
-function LoadData() {
-  const data = localStorage.getItem("transactions");
-  if (data) {
-    transArray = JSON.parse(data);
-  }
-  transactionArray = transArray;
-}
-
-LoadData();
 CallCurrency();
 Loadtrans(transactionArray);
 
@@ -57,7 +47,6 @@ function MakeTransaction(type, amount, currency) {
   transactionArray.push(transaction);
   savelocal(transactionArray);
   Loadtrans(transactionArray);
-  console.log(Balance());
 }
 
 // load transactions
@@ -157,12 +146,11 @@ function Convert(from, to, amount) {
     });
 }
 
-
 //  calculate the balance function using the convert API
 function Balance() {
   let balance = 0;
   for (let i = 0; i < transactionArray.length; i++) {
-    // first condition 
+    // first condition
     if (transactionArray[i].currency == "USD") {
       if (transactionArray[i].type == "income") {
         balance += parseFloat(transactionArray[i].amount);
@@ -190,7 +178,7 @@ function Balance() {
         }
       });
 
-       // converting from LBP to USD
+      // converting from LBP to USD
     } else if (transactionArray[i].currency == "LBP") {
       Convert("LBP", "USD", transactionArray[i].amount).then((data) => {
         if (transactionArray[i].type == "income") {

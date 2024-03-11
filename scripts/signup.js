@@ -9,7 +9,7 @@ signUpbtn.addEventListener("click", function () {
   let name = username.value;
   let pass = password.value;
   let confirmpass = confirmPassword.value;
-  
+
   if (pass === confirmpass) {
     let user = {
       name: name,
@@ -17,7 +17,7 @@ signUpbtn.addEventListener("click", function () {
     };
     AddLocally(user);
     window.location.href = "./transaction.html";
-    localStorage.setItem("loggedUser",name);
+    localStorage.setItem("loggedUser", name);
   } else {
     alert("Wrong Input!!!");
   }
