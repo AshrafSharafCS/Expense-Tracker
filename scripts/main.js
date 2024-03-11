@@ -9,8 +9,19 @@ displayUSer.innerHTML = dataname + "  Account";
 let transactionArray=[];
 let transArray = [];
 
+function LoadData(){
+    const data = localStorage.getItem("transactions");
+  if (data) {
+    transArray = JSON.parse(data);
+  }
+  transactionArray=transArray;
+}
+
+
+LoadData();
 CallCurrency();
-Loadtrans();
+Loadtrans(transactionArray);
+console.log(transArray);
 
 
 
@@ -30,17 +41,13 @@ function MakeTransaction(type, amount, currency) {
   };
   transactionArray.push(transaction);
   savelocal(transactionArray);
-  Loadtrans();
+  Loadtrans(transactionArray);
   
 }
 
 // load transactions
-function Loadtrans() {
+function Loadtrans(transArray) {
   view.innerHTML="";
-  const data = localStorage.getItem("transactions");
-  if (data) {
-    transArray = JSON.parse(data);
-  }
   for (let i = 0; i < transArray.length; i++) {
       
 
@@ -81,7 +88,7 @@ function savelocal(arr){
 function deletetrans(index) {
   transactionArray.splice(index,1);
   savelocal(transactionArray);
-  Loadtrans();
+  Loadtrans(transactionArray);
 }
 
 
