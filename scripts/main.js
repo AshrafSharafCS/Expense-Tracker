@@ -81,8 +81,8 @@ function savelocal(arr){
 
 // delete transaction 
 function deletetrans(index) {
-  transactionArray.slice(index,1);
-  savelocal();
+  transactionArray.splice(index,1);
+  savelocal(transactionArray);
   Loadtrans();
 }
 
