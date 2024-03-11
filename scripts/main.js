@@ -54,9 +54,7 @@ function Loadtrans() {
       <div>
         <h4>${transArray[i].currency}</h4>
       </div>
-      <div>
-        <button class="btns" onclick="edittrans(${i})" >Edit</button>
-      </div>
+
       <div>
         <button class="btns" onclick="deletetrans(${i})" >Delete</button>
       </div
@@ -113,7 +111,7 @@ function logout(){
 }
 // fetching the api to get the currencies.
 function CallCurrency() {
-  result = fetch("https://rich-erin-angler-hem.cyclic.app/students/available", {
+  result = fetch("https://dull-pink-sockeye-tie.cyclic.app/students/available", {
     method: "GET",
   });
   result
@@ -131,43 +129,40 @@ function CallCurrency() {
     option.value = value;
     option.text = code;
     select.appendChild(option);
+    
   }
 }
 
 // convert api 
-function Convert() {
-  const dataa = JSON.stringify({
-    from: "EUR",
-    to: "USD",
-    amount: 1000,
-  });
+// function Convert() {
+   
+//     const dataa = JSON.stringify({
+//     from: 'EUR',
+//     to: 'USD',
+//     amount: 800,
+//   });
 
-  const request = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: dataa,
-  };
+//   const request = {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: dataa,
+//   };
 
-  return fetch(
-    "https://rich-erin-angler-hem.cyclic.app/students/convert",
-    request
-  )
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((result) => {
-      return result;
-    });
-}
+//   return fetch(
+//     "https://rich-erin-angler-hem.cyclic.app/students/convert",
+//     request
+//   )
+//   .then((response) => {
+//       return response.json();
+//     })
+//     .then((result) => {
+//       return result;
+//     });
+// }
 
 // Convert()
 // .then((data)=>{
-//   console.log(data);
+//   if(data){
+//   console.log(data);}
 
-// }) .catch((error) => {
-//   console.error("Error:", error);
-// });;
-// Convert()
+// });
