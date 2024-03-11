@@ -27,7 +27,6 @@ function MakeTransaction(type, amount, currency) {
     currency: currency,
   };
   Addtrans(transaction);
-  view.innerHTML="";
   Loadtrans();
 }
 
@@ -41,40 +40,59 @@ function Addtrans(transaction) {
 }
  
 // view every transaction in html
-function Viewtrans(transaction) {
-  view.innerHTML = "";
-  return `        <div class="trans flex center space-around" >
-  <div>
-    <h4>${transaction.type}</h4>
-  </div>
-  <div>
-    <h4>${transaction.amount}</h4>
-  </div>
-  <div>
-    <h4>${transaction.currency}</h4>
-  </div>
-  <div>
-    <button class="btns" onclick="edittrans()" >Edit</button>
-  </div>
-  <div>
-    <button class="btns" onclick="deletetrans()" >Delete</button>
-  </div>
-</div>`;
-}
-// load transaction for the logged user 
+// function Viewtrans(transaction) {
+//   view.innerHTML = "";
+//   return `        <div class="trans flex center space-around" >
+//   <div>
+//     <h4>${transaction.type}</h4>
+//   </div>
+//   <div>
+//     <h4>${transaction.amount}</h4>
+//   </div>
+//   <div>
+//     <h4>${transaction.currency}</h4>
+//   </div>
+//   <div>
+//     <button class="btns" onclick="edittrans()" >Edit</button>
+//   </div>
+//   <div>
+//     <button class="btns" onclick="deletetrans()" >Delete</button>
+//   </div>
+// </div>`;
+// }
+// load transactions
 function Loadtrans() {
+  view.innerHTML="";
   const data = localStorage.getItem("transactions");
   if (data) {
     transArray = JSON.parse(data);
   }
   for (let i = 0; i < transArray.length; i++) {
-    if (dataname == transArray[i].user) {
       
-      view.innerHTML+=Viewtrans(transArray[i]);
-    }
+
+      let trans=`<div class="trans flex center space-around" >
+      <div>
+        <h4>${transArray[i].type}</h4>
+      </div>
+      <div>
+        <h4>${transArray[i].amount}</h4>
+      </div>
+      <div>
+        <h4>${transArray[i].currency}</h4>
+      </div>
+      <div>
+        <button class="btns" onclick="edittrans(${transArray[i]})" >Edit</button>
+      </div>
+      <div>
+        <button class="btns" onclick="deletetrans(${transArray[i]})" >Delete</button>
+      </div>
+    </div>`;
+    
+      view.innerHTML+=trans;
+      
+    
   }
 }
-
 // function CalculateTotal() {
 //   const data = localStorage.getItem("transactions");
 //   if (data) {
@@ -100,6 +118,7 @@ function deletetrans() {
     }
   }
 }
+
 // logout function 
 function logout(){
   window.location.href = "../index.html";
