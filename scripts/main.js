@@ -57,6 +57,7 @@ function MakeTransaction(type, amount, currency) {
   transactionArray.push(transaction);
   savelocal(transactionArray);
   Loadtrans(transactionArray);
+  console.log(Balance());
 }
 
 // load transactions
@@ -93,6 +94,7 @@ function deletetrans(index) {
   transactionArray.splice(index, 1);
   savelocal(transactionArray);
   Loadtrans(transactionArray);
+  Balance();
 }
 
 // logout function
@@ -127,35 +129,78 @@ function CallCurrency() {
 }
 
 // convert api
-// function Convert() {
+function Convert(from, to, amount) {
+  const dataa = JSON.stringify({
+    from: from,
+    to: to,
+    amount: amount, // Use the 'amount' parameter here
+  });
 
-//     const dataa = JSON.stringify({
-//     from: 'EUR',
-//     to: 'USD',
-//     amount: 800,
-//   });
+  const request = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: dataa,
+  };
 
-//   const request = {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: dataa,
-//   };
+  return fetch(
+    "https://dull-pink-sockeye-tie.cyclic.app/students/convert",
+    request
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((result) => {
+      return result;
+    });
+}
 
-//   return fetch(
-//     "https://rich-erin-angler-hem.cyclic.app/students/convert",
-//     request
-//   )
-//   .then((response) => {
-//       return response.json();
-//     })
-//     .then((result) => {
-//       return result;
-//     });
-// }
 
-// Convert()
-// .then((data)=>{
-//   if(data){
-//   console.log(data);}
+//  calculate the balance function using the convert API
+function Balance() {
+  let balance = 0;
+  for (let i = 0; i < transactionArray.length; i++) {
+    // first condition 
+    if (transactionArray[i].currency == "USD") {
+      if (transactionArray[i].type == "income") {
+        balance += parseFloat(transactionArray[i].amount);
+      } else {
+        balance -= parseFloat(transactionArray[i].amount);
+      }
 
-// });
+      // converting from EUR to USD
+    } else if (transactionArray[i].currency == "EUR") {
+      Convert("EUR", "USD", transactionArray[i].amount).then((data) => {
+        if (transactionArray[i].type == "income") {
+          balance += parseFloat(data);
+        } else {
+          balance -= parseFloat(data);
+        }
+      });
+
+      // converting from AED to USD
+    } else if (transactionArray[i].currency == "AED") {
+      Convert("AED", "USD", transactionArray[i].amount).then((data) => {
+        if (transactionArray[i].type == "income") {
+          balance += parseFloat(data);
+        } else {
+          balance -= parseFloat(data);
+        }
+      });
+
+       // converting from LBP to USD
+    } else if (transactionArray[i].currency == "LBP") {
+      Convert("LBP", "USD", transactionArray[i].amount).then((data) => {
+        if (transactionArray[i].type == "income") {
+          console.log(data);
+          balance += parseFloat(data);
+        } else {
+          balance -= parseFloat(data);
+        }
+      });
+    }
+  }
+  return balance;
+}
