@@ -4,6 +4,10 @@ const transactionType = document.getElementById("transaction-type");
 const displayUSer = document.getElementById("displayuser");
 const dataname = localStorage.getItem("loggedUser");
 const view = document.getElementById("transaction-output");
+const filterbtn = document.getElementById("filter-btn");
+const filter = document.getElementById("filter");
+
+
 displayUSer.innerHTML = dataname + "  Account";
 
 let transactionArray=[];
@@ -21,7 +25,23 @@ function LoadData(){
 LoadData();
 CallCurrency();
 Loadtrans(transactionArray);
-console.log(transArray);
+
+
+// filtering the transactions 
+filterbtn.addEventListener("click",function(){
+  let filterr=filter.value;
+  let filteredArray=[];
+  for(let i=0;i<transactionArray.length;i++){
+    if(filterr==transactionArray[i].type){
+      filteredArray.push(transactionArray[i]);
+    }
+  }
+  Loadtrans(filteredArray);
+
+
+
+
+})
 
 
 
@@ -77,7 +97,7 @@ function Loadtrans(transArray) {
 
 
 
-
+// saving to local storage 
 function savelocal(arr){
   localStorage.setItem("transactions",JSON.stringify(arr));
 }
