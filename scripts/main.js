@@ -7,43 +7,38 @@ const view = document.getElementById("transaction-output");
 const filterbtn = document.getElementById("filter-btn");
 const filter = document.getElementById("filter");
 
-
 displayUSer.innerHTML = dataname + "  Account";
 
-let transactionArray=[];
+let transactionArray = [];
 let transArray = [];
 
-function LoadData(){
-    const data = localStorage.getItem("transactions");
+function LoadData() {
+  const data = localStorage.getItem("transactions");
   if (data) {
     transArray = JSON.parse(data);
   }
-  transactionArray=transArray;
+  transactionArray = transArray;
 }
-
 
 LoadData();
 CallCurrency();
 Loadtrans(transactionArray);
 
-
-// filtering the transactions 
-filterbtn.addEventListener("click",function(){
-  let filterr=filter.value;
-  let filteredArray=[];
-  for(let i=0;i<transactionArray.length;i++){
-    if(filterr==transactionArray[i].type){
-      filteredArray.push(transactionArray[i]);
+// filtering the transactions
+filterbtn.addEventListener("click", function () {
+  let filterr = filter.value;
+  let filteredArray = [];
+  if (filterr == "all") {
+    Loadtrans(transactionArray);
+  } else {
+    for (let i = 0; i < transactionArray.length; i++) {
+      if (filterr == transactionArray[i].type) {
+        filteredArray.push(transactionArray[i]);
+      }
     }
+    Loadtrans(filteredArray);
   }
-  Loadtrans(filteredArray);
-
-
-
-
-})
-
-
+});
 
 // adding a transaction
 addTrans.addEventListener("click", function () {
@@ -62,16 +57,13 @@ function MakeTransaction(type, amount, currency) {
   transactionArray.push(transaction);
   savelocal(transactionArray);
   Loadtrans(transactionArray);
-  
 }
 
 // load transactions
 function Loadtrans(transArray) {
-  view.innerHTML="";
+  view.innerHTML = "";
   for (let i = 0; i < transArray.length; i++) {
-      
-
-      let trans=`<div class="trans flex center space-around" >
+    let trans = `<div class="trans flex center space-around" >
       <div>
         <h4>${transArray[i].type}</h4>
       </div>
@@ -86,61 +78,36 @@ function Loadtrans(transArray) {
         <button class="btns" onclick="deletetrans(${i})" >Delete</button>
       </div
     </div>`;
-    
-      view.innerHTML+=trans;
-      
-    
+
+    view.innerHTML += trans;
   }
 }
 
-
-
-
-
-// saving to local storage 
-function savelocal(arr){
-  localStorage.setItem("transactions",JSON.stringify(arr));
+// saving to local storage
+function savelocal(arr) {
+  localStorage.setItem("transactions", JSON.stringify(arr));
 }
 
-
-
-// delete transaction 
+// delete transaction
 function deletetrans(index) {
-  transactionArray.splice(index,1);
+  transactionArray.splice(index, 1);
   savelocal(transactionArray);
   Loadtrans(transactionArray);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// logout function 
-function logout(){
+// logout function
+function logout() {
   window.location.href = "../index.html";
-  localStorage.setItem("loggedUser",null);
+  localStorage.setItem("loggedUser", null);
 }
 // fetching the api to get the currencies.
 function CallCurrency() {
-  result = fetch("https://dull-pink-sockeye-tie.cyclic.app/students/available", {
-    method: "GET",
-  });
+  result = fetch(
+    "https://dull-pink-sockeye-tie.cyclic.app/students/available",
+    {
+      method: "GET",
+    }
+  );
   result
     .then((response) => response.json())
     .then((data) => {
@@ -156,13 +123,12 @@ function CallCurrency() {
     option.value = value;
     option.text = code;
     select.appendChild(option);
-    
   }
 }
 
-// convert api 
+// convert api
 // function Convert() {
-   
+
 //     const dataa = JSON.stringify({
 //     from: 'EUR',
 //     to: 'USD',
